@@ -43,13 +43,15 @@ Dataset contains two tables: First is about Clients data and whether they have b
 
 # Results and evaluation
 
-ID	Classifier	Training time	Accuracy
-0	SVM	25 minutes	94.22 %
-1	SVM	100 minutes	66.78 %
-2	Logistic Regression	1 minutes	94.20 %
-3	Logistic Regression	5 minutes	64.35 %
-4	Logistic Regression	1 minutes	68.66 %
-5	Logistic Regression	35 seconds	68.50 %
+| ID  | Classifier            | Training time | Accuracy   |
+| --- | --------------------- | ------------- | ---------- |
+| 0   | SVM                   | 25 minutes    | 94.22 %    |
+| 1   | SVM                   | 100 minutes   | 66.78 %    |
+| 2   | Logistic Regression  | 1 minutes     | 94.20 %    |
+| 3   | Logistic Regression  | 5 minutes     | 64.35 %    |
+| 4   | Logistic Regression  | 1 minutes     | 68.66 %    |
+| 5   | Logistic Regression  | 35 seconds    | 68.50 %    |
+
 
 
 
