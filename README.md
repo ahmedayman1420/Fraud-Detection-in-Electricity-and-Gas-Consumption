@@ -7,28 +7,33 @@ We know that the world is about to face a vital crisis in electricity, and gas a
 Azure Synapse Resource is the main point at within the architecture it’s the service used to run the spark job in the cloud, it uses a Microsoft Data storage called Data Lake Storage Gen2 to store the dataset file, beside the Notebook codes files used to run the jobs and communicate with synapse. Step 1 User have to load the dataset file into data storage after creating one, then, after configuration, the storage service will give a connection string, in terms of file location just to use it inside notebook. Step 2 Instantiate a workspace within Synapse service, then create new pool to run our spark job on. Step 3 From Synapse workspace, Start a new Synapse studio, then upload your notebook after embedd the connection string to dataset. Step 4 Running the notebook will automatically run the service, service in turn will create jobs, splitting the data and send it to nodes to run the Machine learning algorithm, using the cloud spark service will lead us to run the job x100 times faster than local
 
 # Data preprocessing and visualization
-Dataset contains two tables: First is about Clients data and whether they have been labeled as fraud or not. Second table is the all invoices of these clients with information such as Consumption values in each consumption level (4 levels), Counter statutes, Reading Remarks, Number of months of the invoice and also whether the invoice is Electric or Gas. It was important to produce a dataset by joining the two tables and aggregating the invoices data of each client. We calculated 4 statistical numbers for each column and that is: Mean, Max, Min, Std. These 4 numbers will be calculated for each continuous value column for each client and for each type of invoice (ELEC or GAZ) so for example the column of reading_remarque will produce 8 columns in the new dataset, mean_elec_reading_remarque, max_elec_reading_remarque, min_elec_reading_remarque, std_elec_reading_remarque, mean_gaz_reading_remarque, max_gaz_reading_remarque, min_gaz_reading_remarque, std_gaz_reading_remarque. This was done on 6 continuous columns ( Reading Remarque, Months Number, Consumption Level 1, Consumption Level 2, Consumption Level 3, Consumption Level 4) to product 48 statistical columns for each client, finally some columns were dropped for not being important such as region or client id and so on. This produced a dataset of shape 135493 x 50 Finally another problem was that the data was very imbalanced where the number of frauds is as expected not very high![b64c5b94-8386-40ff-b9c0-049fcdd9631d](https://github.com/ahmedayman1420/Fraud-Detection-in-Electricity-and-Gas-Consumption/assets/76254195/d3a12c5a-cbce-4afa-94a0-11d3358fd753)
+Dataset contains two tables: First is about Clients data and whether they have been labeled as fraud or not. Second table is the all invoices of these clients with information such as Consumption values in each consumption level (4 levels), Counter statutes, Reading Remarks, Number of months of the invoice and also whether the invoice is Electric or Gas. It was important to produce a dataset by joining the two tables and aggregating the invoices data of each client. We calculated 4 statistical numbers for each column and that is: Mean, Max, Min, Std. These 4 numbers will be calculated for each continuous value column for each client and for each type of invoice (ELEC or GAZ) so for example the column of reading_remarque will produce 8 columns in the new dataset, mean_elec_reading_remarque, max_elec_reading_remarque, min_elec_reading_remarque, std_elec_reading_remarque, mean_gaz_reading_remarque, max_gaz_reading_remarque, min_gaz_reading_remarque, std_gaz_reading_remarque. This was done on 6 continuous columns ( Reading Remarque, Months Number, Consumption Level 1, Consumption Level 2, Consumption Level 3, Consumption Level 4) to product 48 statistical columns for each client, finally some columns were dropped for not being important such as region or client id and so on. This produced a dataset of shape 135493 x 50 Finally another problem was that the data was very imbalanced where the number of frauds is as expected not very high!
+![4eb282a2-599c-4cec-97b3-2ea054b330a3](https://github.com/ahmedayman1420/Fraud-Detection-in-Electricity-and-Gas-Consumption/assets/76254195/d1ddc4e0-52cb-4356-922f-cdda7a7d3453)
+
 
 # Extracting Insights from data
 
 ## Distribution of user categories: we have 3 categories (11, 12, 51), most of the clients are related to category 11.
-![773956ca-4a58-4d9a-8b2d-a8a8ca233af8](https://github.com/ahmedayman1420/Fraud-Detection-in-Electricity-and-Gas-Consumption/assets/76254195/d86e8387-ac74-43fb-97c8-2724c8af2908)
+![3a3b396c-5b82-487d-bd9c-acc5745dc0f8](https://github.com/ahmedayman1420/Fraud-Detection-in-Electricity-and-Gas-Consumption/assets/76254195/16176e6d-605e-47d9-839d-736f31c64771)
+
 
 ## Electricity consumption for each category: category 51 consumes electricity more than category 11 & 12.
-![ea7c675f-a807-49f7-a100-b2397e15d901](https://github.com/ahmedayman1420/Fraud-Detection-in-Electricity-and-Gas-Consumption/assets/76254195/9abe80a8-fe78-4246-96c6-f6259dc1ea00)
-![73fbbecc-18e8-4262-9655-e8b084a27c71](https://github.com/ahmedayman1420/Fraud-Detection-in-Electricity-and-Gas-Consumption/assets/76254195/f845b869-dc3e-4837-a34f-5d05a77a9dee)
-![5c1f4659-40bc-442a-823f-ded1dbc767e8](https://github.com/ahmedayman1420/Fraud-Detection-in-Electricity-and-Gas-Consumption/assets/76254195/27532a89-e26b-43d7-b797-6af517f88553)
-![f1a94454-44a1-4321-9beb-ce3ee90cdba6](https://github.com/ahmedayman1420/Fraud-Detection-in-Electricity-and-Gas-Consumption/assets/76254195/a3e4e8e6-0533-4d38-a367-8d6ae39af3b3)
+![ef5c63c3-48ad-4144-b4da-4d0d535e47cf](https://github.com/ahmedayman1420/Fraud-Detection-in-Electricity-and-Gas-Consumption/assets/76254195/e0e574c3-7c05-4bee-954b-b917daaa733e)
+![45959966-069b-4378-bfbf-ed6a822eb29b](https://github.com/ahmedayman1420/Fraud-Detection-in-Electricity-and-Gas-Consumption/assets/76254195/8e6d6046-21e4-4087-b325-0249ed819440)
+![432125d8-bddc-4f7c-9e87-e6059ca2e108](https://github.com/ahmedayman1420/Fraud-Detection-in-Electricity-and-Gas-Consumption/assets/76254195/0770a4dd-0a3e-497f-bb7d-37cf36e0c696)
+![98335349-0c8c-4a73-8bb8-0a21d46700f7](https://github.com/ahmedayman1420/Fraud-Detection-in-Electricity-and-Gas-Consumption/assets/76254195/48a75299-2e9d-4fa0-81f2-e83fb2991fc1)
+
 
 ## Gaz consumption for each category: category 3 consumes more than category 1 & 2. In general, no category consumes more than level 2 in 
-![2767a0e7-0a98-4048-b49f-cb927540336c](https://github.com/ahmedayman1420/Fraud-Detection-in-Electricity-and-Gas-Consumption/assets/76254195/81f36633-d938-4601-bad3-c7a0257000b9)
-![50449dbe-fc5c-4b15-9b48-fb3235acf9fc](https://github.com/ahmedayman1420/Fraud-Detection-in-Electricity-and-Gas-Consumption/assets/76254195/85cc2c69-973f-4a43-83d9-a56ae3250c02)
-![29bb23e5-1946-4a14-a900-5a6886cae87f](https://github.com/ahmedayman1420/Fraud-Detection-in-Electricity-and-Gas-Consumption/assets/76254195/49466dda-b5bc-47b0-a697-c4536290c6c3)
-![724606f4-79aa-4726-aec9-b6715504f230](https://github.com/ahmedayman1420/Fraud-Detection-in-Electricity-and-Gas-Consumption/assets/76254195/0296d299-77cf-460c-93ed-941d75015a57)
+![2ae6e384-da42-4178-84b2-359bdb8e3516](https://github.com/ahmedayman1420/Fraud-Detection-in-Electricity-and-Gas-Consumption/assets/76254195/f86aeb71-eea2-4d6c-b611-8db998b75788)
+![bf4235dc-5541-40b3-9394-764ccf8d28ec](https://github.com/ahmedayman1420/Fraud-Detection-in-Electricity-and-Gas-Consumption/assets/76254195/0c33372e-e735-4b53-9e6c-3dd59e4e4f5f)
+![f2883ba3-7426-467b-92f0-c89202374166](https://github.com/ahmedayman1420/Fraud-Detection-in-Electricity-and-Gas-Consumption/assets/76254195/cc6891e4-bc30-4cb1-8954-ef946e0b1d66)
+![b47deb0f-f69c-44ba-9f20-444b857fb3c5](https://github.com/ahmedayman1420/Fraud-Detection-in-Electricity-and-Gas-Consumption/assets/76254195/58049da4-c8e6-47fc-8467-0b0de2207af6)
+
 
 ## Average electricity & gaz month number
-![2e835bf6-f143-4621-9a2a-d2bb61a8275b](https://github.com/ahmedayman1420/Fraud-Detection-in-Electricity-and-Gas-Consumption/assets/76254195/e64040ff-ad6e-4244-8c63-95cbfc5c612a)
-![b123e931-e13e-4429-9eeb-6f7b225ee60a](https://github.com/ahmedayman1420/Fraud-Detection-in-Electricity-and-Gas-Consumption/assets/76254195/a83f16e1-0203-431b-8136-61dbefb21b9f)
+![a3922dca-612e-457e-98ba-6823bc8deebe](https://github.com/ahmedayman1420/Fraud-Detection-in-Electricity-and-Gas-Consumption/assets/76254195/051f182e-e09e-4b59-99ce-8941a2f19d24)
+![1ec4174b-06c6-4952-a165-93ec6cb88a3a](https://github.com/ahmedayman1420/Fraud-Detection-in-Electricity-and-Gas-Consumption/assets/76254195/9746c5a9-5890-415a-abba-07ce8e011de3)
 
 # Model and Classifier Tuning
 
